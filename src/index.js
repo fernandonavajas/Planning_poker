@@ -6,6 +6,7 @@ import io from 'socket.io-client';
 // Importar components
 import Navbar from './components/Navbar';
 import Card from './components/Card'; 
+import Cardback from './components/Cardback';
 
 // Componente App
 class App extends Component {
@@ -61,12 +62,15 @@ class App extends Component {
             placeholder="Ingresa una puntuación"
             onKeyUp={this.handleSubmit.bind(this)}
           />
-          <h1>Hola estoy en App.js</h1>
+          <h1>Hola estoy en src/index.js</h1>
 
           <ul>
             {messages}
           </ul>
+          <Cardback/>
           <Card number="5"/>
+          <Card number="13"/>
+
         </body>
       </div>
     );
