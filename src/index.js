@@ -6,7 +6,6 @@ import io from 'socket.io-client';
 // Importar components
 import Navbar from './components/Navbar';
 import Card from './components/Card'; 
-import Cardback from './components/Cardback';
 
 // Componente App
 class App extends Component {
@@ -67,8 +66,8 @@ class App extends Component {
           <ul>
             {messages}
           </ul>
-          <Cardback/>
-          <Card number="5"/>
+          <Card/>
+          <Card number="6"/>
           <Card number="13"/>
 
         </body>
