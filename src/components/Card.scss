@@ -1,0 +1,33 @@
+.card-joker {
+  max-width: 18rem;
+  height: 25rem;
+  
+  background-color: #F6F6F6;
+  font-size: 20px;
+  color: red;
+
+  .card-body {
+    display: table;
+  }
+
+  .top {
+    display: table-cell;
+  }
+
+  .center {
+    text-align: center;
+    font-size: 100px;
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .bottom {
+    text-align: end;
+    display: table-cell;
+    vertical-align: bottom;
+  }
+
+  .heart {
+    font-size: 2em;
+  }
+}

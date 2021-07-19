@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 
 import io from 'socket.io-client';
 
+// Importar components
+import Navbar from './components/Navbar';
+import Card from './components/Card'; 
+
 // Componente App
 class App extends Component {
 
@@ -49,11 +53,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="app-header">
-          <nav >
-            <a href="" className="text-gray">
-              Navegacion
-            </a>
-          </nav>
+          <Navbar title="Planning Poker"/>
         </header>
         <body className="app-body">
           <input
@@ -66,6 +66,7 @@ class App extends Component {
           <ul>
             {messages}
           </ul>
+          <Card number="5"/>
         </body>
       </div>
     );
