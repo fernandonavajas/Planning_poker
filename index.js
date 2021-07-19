@@ -28,6 +28,15 @@ io.on('connection', socket => {
       from: socket.id.slice(5)
     })
   })
+
+  socket.on('new_room', socket_id => {
+    socket.join(socket_id);
+    io.to(socket_id).emit('new_client');
+    console.log("Usuario", socket.id , "agregado a sala", socket_id )
+    console.log(socket.rooms)
+
+
+  });
 })
 
 server.listen(5000, ()=> {

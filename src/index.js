@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import socket from './socketConfig';
 
-import io from 'socket.io-client';
+//import io from 'socket.io-client';
 
 // Importar components
 import Navbar from './components/Navbar';
 import Card from './components/Card'; 
+import Rooms from './rooms';
 
 // Componente App
+// Contiene la logica para la mensajeria de websocket
 class App extends Component {
 
   constructor() {
@@ -18,8 +21,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.socket = io('/');
-    this.socket.on('message', message => {
+    //this.socket = io('/');
+    socket.on('message', message => {
       this.setState({
         messages: [message, ...this.state.messages]
       });
@@ -35,7 +38,7 @@ class App extends Component {
       };
       // hacer que yo tambien pueda ver mis mensajes
       this.setState({messages: [message, ...this.state.messages]})
-      this.socket.emit('message', body);
+      socket.emit('message', body);
       event.target.value = '';
     }
   }
@@ -52,9 +55,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <header className="app-header">
-          <Navbar title="Planning Poker"/>
-        </header>
+        <Navbar title="Planning Poker"/>
         <body className="app-body">
           <input
             type="text"
@@ -66,9 +67,19 @@ class App extends Component {
           <ul>
             {messages}
           </ul>
-          <Card/>
-          <Card number="6"/>
-          <Card number="13"/>
+          <Rooms/>
+          <div className="d-flex">
+            <Card/>
+            <Card number="1"/>
+            <Card number="2"/>
+            <Card number="3"/>
+            <Card number="4"/>
+            <Card number="5"/>
+            <Card number="6"/>
+            <Card number="7"/>
+            <Card number="8"/>
+          </div>
+
 
         </body>
       </div>
