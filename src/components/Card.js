@@ -4,7 +4,7 @@ import './Card.scss'
 class Card extends Component {
   render() {
     // Parte delantera de una carta
-    if(this.props.number) {
+    if(this.props.show) {
       return (
         <div className="card card-joker">
           <div className="card-body">

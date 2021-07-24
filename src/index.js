@@ -69,15 +69,14 @@ class App extends Component {
           </ul>
           <Rooms/>
           <div className="d-flex">
-            <Card/>
-            <Card number="1"/>
-            <Card number="2"/>
-            <Card number="3"/>
-            <Card number="4"/>
-            <Card number="5"/>
-            <Card number="6"/>
-            <Card number="7"/>
-            <Card number="8"/>
+            <Card number={1} show={false}/>
+            <Card number={2} show={true}/>
+            <Card number={3} show={true}/>
+            <Card number={4} show={true}/>
+            <Card number={5} show={true}/>
+            <Card number={6} show={true}/>
+            <Card number={7} show={true}/>
+            <Card number={8} show={true}/>
           </div>
 
 
