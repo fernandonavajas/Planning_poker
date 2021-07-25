@@ -1,0 +1,26 @@
+.PokerPot {
+  padding-top: 10%;
+
+  .score-element {
+    text-align: center;
+
+    .score-text {
+      font-size: 20px;
+      font-weight: bold;
+      color: #f74545;
+    }
+  }
+
+  .pot {
+    justify-content: center;
+    display: flex;
+    min-height: 100vh;
+    flex-wrap: wrap;
+  }
+
+  .pot > * {
+    margin: 10px;
+  }
+}
+
+

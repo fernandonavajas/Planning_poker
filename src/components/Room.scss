@@ -1,0 +1,12 @@
+.Room {
+
+  .score {
+    text-align: center;
+  }
+}
+
+.Room::after {
+  content: '';
+  display: block;
+  height: 286px; /* Set same as footer's height */
+}
