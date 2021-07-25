@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import socket from './socketConfig';
-
+import './index.scss'
 //import io from 'socket.io-client';
 
 // Importar components
@@ -43,6 +43,14 @@ class App extends Component {
     }
   }
 
+
+  // cambiar darkMode
+  switchDarkMode() {
+    this.setState(prevState => ({
+      darkMode: !prevState.darkMode
+    }));
+  }
+
   render() {
 
     const messages = this.state.messages.map((message, index) => {
@@ -54,16 +62,8 @@ class App extends Component {
     });
 
     return (
-      <div className="App">
-        <Navbar title="Planning Poker"/>
-        <body className="app-body">
-          <input
-            type="text"
-            placeholder="Ingresa una puntuación"
-            onKeyUp={this.handleSubmit.bind(this)}
-          />
-          <h1>Hola estoy en src/index.js</h1>
-
+      <div className={`App bg-semi-${this.state.darkMode ? "black" : "white"}`}>
+        <Navbar title="Planning Poker" updateDarkMode={this.switchDarkMode.bind(this)}/>
           <ul>
             {messages}
           </ul>
