@@ -1,0 +1,29 @@
+.Rooms {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+
+  .btn-create-room {
+    margin: 10px;
+    width: 50%;
+    max-width: 500px;
+    min-width: 150px;
+
+  }
+
+  .btn-join-room {
+    margin-left: 10px;
+    margin-top: 1px;
+    width: 160px;
+
+  }
+
+  .input-join-room {
+    max-width: 300px;
+    min-width: 100px;
+
+  }
+}
