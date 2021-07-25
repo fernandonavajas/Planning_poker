@@ -1,11 +1,12 @@
 .card-joker {
-  max-width: 18rem;
-  height: 25rem;
+  height: 18rem;
+  min-width: 50px;
+  width: 200px;
   
   background-color: #F6F6F6;
   font-size: 20px;
   color: #F74545;
-
+  
   .card-body {
     display: table;
   }
@@ -16,7 +17,7 @@
 
   .center {
     text-align: center;
-    font-size: 100px;
+    font-size: 80px;
     display: table-cell;
     vertical-align: middle;
   }
@@ -41,4 +42,11 @@
     background-size: 28px 28px;
     background-repeat: repeat;
   }
+}
+
+.card-front:hover {
+  background-color: yellow;
+  width: 200px;
+  height: 18rem;
+  z-index: 2;
 }

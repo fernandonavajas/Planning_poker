@@ -7,7 +7,7 @@ class Card extends Component {
     if(this.props.show) {
       return (
         <div className="card card-joker">
-          <div className="card-body">
+          <div className="card-body card-front">
             <div className="top">
               <div>
                 <div>{this.props.number}</div>

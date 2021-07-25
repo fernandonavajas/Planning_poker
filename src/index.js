@@ -8,6 +8,7 @@ import './index.scss'
 import Navbar from './components/Navbar';
 import Card from './components/Card'; 
 import Rooms from './components/Rooms';
+import Room from './components/Room';
 
 // Componente App
 // Contiene la logica para la mensajeria de websocket
@@ -128,16 +129,7 @@ class App extends Component {
           
           { room
             ? <div>
-                <div className="d-flex">
-                  <Card number={1} show={false}/>
-                  <Card number={2} show={true}/>
-                  <Card number={3} show={true}/>
-                  <Card number={4} show={true}/>
-                  <Card number={5} show={true}/>
-                  <Card number={6} show={true}/>
-                  <Card number={7} show={true}/>
-                  <Card number={8} show={true}/>
-                </div>
+                <Room/>
                 <input
                   type="text"
                   placeholder="Envia un mensaje"
