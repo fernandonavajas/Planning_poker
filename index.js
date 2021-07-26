@@ -84,6 +84,6 @@ io.on('connection', socket => {
   })
 })
 
-server.listen(5000, ()=> {
-  console.log("levantado en el puerto 5000")
+server.listen(8080, ()=> {
+  console.log("levantado en el puerto 8080")
 })
