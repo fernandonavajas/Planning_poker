@@ -10,13 +10,17 @@ import './PokerHand.scss'
 class PokerHand extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      room_id: this.props.room_id,
+    }
   }
 
   render() {
     let cards = [];
     for (let i = 0.5; i < 10; i = i + 0.5) {
       cards.push(
-        <Card number={i} show={true}/>
+        <Card number={i} show={true} room_id={this.state.room_id} />
       );
     }
 

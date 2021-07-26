@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import socket from './socketConfig';
 import './index.scss'
-//import io from 'socket.io-client';
 
 // Importar components
 import Navbar from './components/Navbar';
@@ -129,7 +128,7 @@ class App extends Component {
           
           { room
             ? <div>
-                <Room/>
+                <Room room_id={room}/>
                 <input
                   type="text"
                   placeholder="Envia un mensaje"

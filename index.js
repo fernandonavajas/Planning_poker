@@ -22,6 +22,7 @@ io.on('connection', socket => {
   // Cada vez que alguien se conecta enviar un mensaje por consola
   console.log('socket Connected: ', socket.id);
 
+
   // Cada vez que alguien envia un mensaje
   socket.on('message', message => {
     console.log('se envio un mensaje:', message)
@@ -30,6 +31,7 @@ io.on('connection', socket => {
       from: socket.id.slice(5)
     })
   })
+
 
   // Cada vez que alguien crea una sala nueva
   // enviamos la id de la sala para que las futuras solicitudes
@@ -51,6 +53,31 @@ io.on('connection', socket => {
     console.log("Usuario", socket.id , "agregado a sala", socket_id )
     //console.log(socket.rooms)
   });
+
+  // Cada vez que alguien selecciona una carta de su mano
+  // enviamos un evento de carta seleccionada a la sala donde se encuentra
+  socket.on('new_card', selected_card => {
+    console.log(selected_card, socket.id)
+    io.to(selected_card.room_id).emit('selected_card', {
+      number: selected_card.number,
+      user: socket.id
+    });
+  });
+
+
+  // cada vez que alguien preciona "limpiar cartas"
+  // enviamos un evento de limpiar cartas a la sala donde se encuentra
+  socket.on('clear_card_data', room_id => {
+    io.to(room_id).emit('clear_cards');
+  });
+
+
+  // cada vez que alguien preciona "mostrar cartas"
+  // enviamos un evento para mostrar las cartas a la sala donde se encuentra
+  socket.on('show_card_data', room_id => {
+    io.to(room_id).emit('show_cards');
+  });
+
 
   socket.on('disconnect', function() {
     //console.log("Desconectando de la sala: ", socket.id )

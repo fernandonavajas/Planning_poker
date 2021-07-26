@@ -10,13 +10,17 @@ import './Room.scss'
 class Room extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      room_id: this.props.room_id,
+    }
   }
 
   render() {
     return (
       <div className="Room">
-        <PokerPot/>
-        <PokerHand/>
+        <PokerPot room_id={this.state.room_id}/>
+        <PokerHand room_id={this.state.room_id}/>
       </div>
     );
   }
