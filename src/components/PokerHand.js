@@ -18,15 +18,17 @@ class PokerHand extends Component {
 
   render() {
     let cards = [];
-    for (let i = 0.5; i < 10; i = i + 0.5) {
+    for (let i = 0; i <= 10; i = i + 0.5) {
       cards.push(
         <Card number={i} show={true} room_id={this.state.room_id} />
       );
     }
 
     return (
-      <div className="PokerHand">
-          {cards}
+      <div className="banana">
+        <div className="PokerHand">
+            {cards}
+        </div>
       </div>
     );
   }
