@@ -1,6 +1,6 @@
 module.exports = {
   mode: 'development',
-  entry: __dirname+'/.src',
+  entry: __dirname+'/src',
   output: {
     path: __dirname + '/dist',
     publicPath: '/',
