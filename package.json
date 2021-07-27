@@ -2,10 +2,13 @@
   "name": "planning_poker_express",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
+  "engines": {
+    "node": "10.x.x"
+  },
   "scripts": {
     "deploy": "gcloud app deploy",
-    "start": "node .",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build:webpack",
     "build:webpack": "webpack --mode production --config webpack.prod.config.js",
@@ -20,9 +23,7 @@
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "socket.io": "^4.1.3",
-    "socket.io-client": "^4.1.3"
-  },
-  "devDependencies": {
+    "socket.io-client": "^4.1.3",
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.7",
     "@babel/preset-react": "^7.14.5",
@@ -34,7 +35,9 @@
     "sass-loader": "^12.1.0",
     "style-loader": "^3.1.0",
     "webpack": "^5.45.1",
-    "webpack-cli": "^4.7.2",
+    "webpack-cli": "^4.7.2"
+  },
+  "devDependencies": {
     "webpack-dev-middleware": "^5.0.0"
   }
 }

@@ -5,7 +5,6 @@ import './index.scss'
 
 // Importar components
 import Navbar from './components/Navbar';
-import Card from './components/Card'; 
 import Rooms from './components/Rooms';
 import Room from './components/Room';
 
