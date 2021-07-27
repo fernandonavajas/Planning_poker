@@ -3,11 +3,9 @@ const path = require('path');
 
 module.exports = {
   mode: 'production',
-  entry: __dirname+'/src',
+  entry: __dirname+'/src/index.js',
   output: {
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/',
-    filename: 'bundle.js'
+    filename: './dist/bundle.js'
   },
   module: {
     rules: [
