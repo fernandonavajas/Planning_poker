@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://fernandonavajas.github.io/planning_poker",
   "scripts": {
     "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1",
