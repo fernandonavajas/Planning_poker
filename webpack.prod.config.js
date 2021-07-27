@@ -4,7 +4,8 @@ module.exports = {
   mode: 'production',
   entry: __dirname+'/src/index.js',
   output: {
-    filename: './dist/bundle.js'
+    path: __dirname + '/dist',
+    filename: 'bundle.js'
   },
   module: {
     rules: [
