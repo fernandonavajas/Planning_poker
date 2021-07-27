@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "deploy": "gcloud app deploy",
     "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build:webpack",
