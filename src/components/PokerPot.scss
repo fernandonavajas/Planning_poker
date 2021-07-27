@@ -21,6 +21,19 @@
   .pot > * {
     margin: 10px;
   }
+
+  .admin_buttons {
+    text-align: start;
+    
+    .btn-show-cards {
+      margin: 5px;
+    }
+  
+    .btn-clear-cards {
+      margin: 5px;
+    }
+  }
+  
 }
 
 

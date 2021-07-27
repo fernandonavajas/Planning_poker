@@ -67,10 +67,22 @@ class PokerPot extends Component {
     socket.emit('show_card_data', this.state.room_id);
   }
   
+  admin_buttons() {
+    return(
+      <div className="admin_buttons">
+        <button type="button" className="btn btn-primary btn-sm btn-clear-cards"
+                          onClick={this.clearCards.bind(this)} >Limpiar</button>
+                  <button type="button" className="btn btn-success btn-sm btn-show-cards"
+                          onClick={this.showCards.bind(this)} >Mostrar</button>
+      </div>
+    )
+  };
 
   render() {
 
     const show_cards = this.state.show_cards
+    const room_id = this.state.room_id
+
     const cards = this.state.cards.map((card, index) => {
       return(
         <Card number={card.number} show={show_cards} />
@@ -80,18 +92,17 @@ class PokerPot extends Component {
     const average = this.state.cards.reduce((total, next) =>
                       total + next.number, 0
                       ) / this.state.cards.length || 0;
+
+    
+    const admin_buttons =  room_id === socket.id ? this.admin_buttons() : "";
     
     return (
       <div className="PokerPot">
         <span className="score-element">
-          
-          <button type="button" className="btn btn-success btn-sm"
-                  onClick={this.clearCards.bind(this)} >Limpiar</button>
-          <button type="button" className="btn btn-success btn-sm"
-                  onClick={this.showCards.bind(this)} >Mostrar</button>
+          { admin_buttons }
           { show_cards
           ? <p className="score-text">El promedio es de: {average.toFixed(1)} </p>
-          : <p>El promedio es de: </p> }
+          : "" }
           
         </span>
         <div className="pot">
