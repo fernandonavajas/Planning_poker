@@ -1,6 +1,6 @@
 
 env: flex
-runtime: nodejs10
+runtime: nodejs
 
 service: app-planning-poker-react
 
