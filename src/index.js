@@ -99,7 +99,6 @@ class App extends Component {
 
   // Compartir invitación
   inviteLink() {
-    console.log(this.state.room_id)
     let msg = "Copia y comparte el codigo: " + (this.state.room_id ? this.state.room_id : socket.id)
     alert(msg)
   }

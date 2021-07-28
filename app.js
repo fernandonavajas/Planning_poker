@@ -20,12 +20,10 @@ app.use(express.static(path.join(__dirname,'/public')))
 
 io.on('connection', socket => {
   // Cada vez que alguien se conecta enviar un mensaje por consola
-  console.log('socket Connected: ', socket.id);
 
 
   // Cada vez que alguien envia un mensaje
   socket.on('message', message => {
-    console.log('se envio un mensaje:', message)
     socket.to(message.to).emit('message', {
       body: message.body,
       from: socket.id.slice(5)
@@ -50,14 +48,12 @@ io.on('connection', socket => {
       id: socket.id
     });
     
-    console.log("Usuario", socket.id , "agregado a sala", socket_id )
     //console.log(socket.rooms)
   });
 
   // Cada vez que alguien selecciona una carta de su mano
   // enviamos un evento de carta seleccionada a la sala donde se encuentra
   socket.on('new_card', selected_card => {
-    console.log(selected_card, socket.id)
     io.to(selected_card.room_id).emit('selected_card', {
       number: selected_card.number,
       user: socket.id
