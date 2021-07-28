@@ -7,6 +7,7 @@ import './index.scss'
 import Navbar from './components/Navbar';
 import Rooms from './components/Rooms';
 import Room from './components/Room';
+import Expire from './components/Expire';
 
 // Componente App
 // Contiene la logica para la mensajeria de websocket
@@ -74,6 +75,10 @@ class App extends Component {
       });
     })
 
+
+    $(document).ready(function(){
+      $(".alert-new-client").fadeTo(2000, 500)
+    });
   }
 
   sendMessageToRoom(event){
@@ -113,9 +118,11 @@ class App extends Component {
 
     const messages = this.state.messages.map((message, index) => {
       return(
-        <li key={index}>
-          <b>{message.from} : {message.body}</b>
-        </li>
+        <Expire delay="2000">
+          <div className="alert alert-success alert-new-client alert-dismissible fade show" role="alert">
+            {message.body}
+          </div>
+        </Expire>
       )
     });
 
@@ -128,18 +135,19 @@ class App extends Component {
           { room
             ? <div>
                 <Room room_id={room}/>
-                <input
+                {/* <input
                   type="text"
                   placeholder="Envia un mensaje"
                   onKeyUp={this.sendMessageToRoom.bind(this)}
-                />
-                <ul>
+                /> */}
+                <span className="alerts">
                   {messages}
-                </ul>
+                </span>
               </div>
 
             : <Rooms/>
           }
+          
       </div>
     );
   }
