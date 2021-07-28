@@ -30,7 +30,7 @@ class Rooms extends Component {
         <br/>
         <div className="d-flex">
           <input id="suscribe_room" className="input-join-room input-lg form-control"
-            type="text"
+            type="text" autocomplete="off"
             placeholder="Ingresa el ID de la sala"
           />
 
