@@ -25,7 +25,14 @@ class PokerHand extends Component {
     }
 
     return (
-      <div className="banana">
+      <div className="PokerHandSection">
+        <div className="alias" >
+          <input id="input_username_room" className="input-username-room input-lg form-control"
+              type="text" autoComplete="off"
+              placeholder="Ingresa tu alias"
+            />
+
+        </div>
         <div className="PokerHand">
             {cards}
         </div>

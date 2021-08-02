@@ -1,10 +1,22 @@
-.PokerHand {
+.PokerHandSection {
   position: fixed;
   left: 0;
-  bottom: 0.5%;
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  flex-direction: row;
+  bottom: 0.5%;
+
+  .alias {
+    text-align: -webkit-center;
+  }
+  .PokerHand {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    flex-direction: row;
+
+  }
+  
+  .input-username-room {
+    width: 162px;
+    margin-bottom: 5px;
+  }
 }

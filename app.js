@@ -56,7 +56,8 @@ io.on('connection', socket => {
   socket.on('new_card', selected_card => {
     io.to(selected_card.room_id).emit('selected_card', {
       number: selected_card.number,
-      user: socket.id
+      user: selected_card.username,
+      socket_id: socket.id
     });
   });
 

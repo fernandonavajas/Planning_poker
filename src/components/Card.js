@@ -16,9 +16,21 @@ class Card extends Component {
   showNumber() {
     let selected_card = {
       number: this.state.number,
-      room_id: this.state.room_id
+      room_id: this.state.room_id,
+      username: document.getElementById('input_username_room').value || socket.id
     }
     socket.emit('new_card', selected_card);
+  }
+
+  showUsername() {
+    if (this.props.user) {
+      return (
+        <span className="username">
+          {this.props.user.slice(0, 12)}
+        </span>
+        )
+    }
+    
   }
 
 
@@ -29,25 +41,30 @@ class Card extends Component {
     // Parte delantera de una carta
     if(this.props.show) {
       return (
-        <div className="card card-joker" onClick={this.showNumber.bind(this)}>
-          <div className={`card-body ${room_id ? "card-interact" : ""}`}>
-            <div className="top">
-              <div>
-                <div>{this.props.number}</div>
-                <div className="heart">♥</div>
+        <div className="card_container">
+          <div className="card card-joker" onClick={this.showNumber.bind(this)}>
+            <div className={`card-body ${room_id ? "card-interact" : ""}`}>
+              <div className="top">
+                <div>
+                  <div>{this.props.number}</div>
+                  <div className="heart">♥</div>
+                </div>
+              </div>
+              <div className="center">
+                <div>
+                  {this.props.number}
+                </div>
+              </div>
+              <div className="bottom">
+                <div>
+                  <div className="heart">♥</div>
+                  <div>{this.props.number}</div>
+                </div>
               </div>
             </div>
-            <div className="center">
-              <div>
-                {this.props.number}
-              </div>
-            </div>
-            <div className="bottom">
-              <div>
-                <div className="heart">♥</div>
-                <div>{this.props.number}</div>
-              </div>
-            </div>
+          </div>
+          <div className="username_container">
+            {this.showUsername()}
           </div>
         </div>
       )
@@ -55,8 +72,13 @@ class Card extends Component {
     // Parte trasera de una carta
     else {
       return (
-        <div className="card card-joker">
-          <div className="card-body card-back">
+        <div className="card_container">
+          <div className="card card-joker">
+            <div className="card-body card-back">
+            </div>
+          </div>
+          <div className="username_container">
+            {this.showUsername()}
           </div>
         </div>
       )
