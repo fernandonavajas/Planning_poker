@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 
 class Navbar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      room_id: null
+    }
+  }
+
   render() {
     return (
     <header className="app-header">

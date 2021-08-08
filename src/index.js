@@ -75,12 +75,6 @@ class App extends Component {
     });
   }
 
-  // Compartir invitación
-  inviteLink() {
-    let msg = "Copia y comparte el codigo: " + (this.state.room_id ? this.state.room_id : socket.id)
-    alert(msg)
-  }
-
   // cambiar darkMode
   switchDarkMode() {
     this.setState(prevState => ({
@@ -108,9 +102,6 @@ class App extends Component {
         <div className={`App bg-semi-${this.state.darkMode ? "black" : "white"}`}>
           <Switch>
             <Route path="/room/:id" exact>
-              <button type="button" className="btn btn-success share-room"
-                        onClick={this.inviteLink.bind(this)} >Compartir Link</button>
-              
               <Room />
               <span className="alerts">
                 {messages}
