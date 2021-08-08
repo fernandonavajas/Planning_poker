@@ -1,3 +1,4 @@
+
 module.exports = {
   mode: 'development',
   entry: __dirname+'/src',
@@ -9,10 +10,14 @@ module.exports = {
   devServer: {
     historyApiFallback: true
   },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: [ /\.js$/, /\.jsx?$/],
+        exclude: /node_module/,
         loader: 'babel-loader',
         options: {
           presets: [

@@ -8,7 +8,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 
 // Importar components
@@ -73,7 +74,6 @@ class App extends Component {
       this.setState({
         room_id: room_id
       });
-      console.log(this.state)
     })
 
     // logica para saber cuando el usuario crea o se agrega a una nueva sala
@@ -122,20 +122,19 @@ class App extends Component {
         <Navbar title="Planning Poker" updateDarkMode={this.switchDarkMode.bind(this)}/>
         <div className={`App bg-semi-${this.state.darkMode ? "black" : "white"}`}>
           <Switch>
-            <Route path="/room_id" exact>
+            <Route path="/room/:id" exact>
               <button type="button" className="btn btn-success share-room"
                         onClick={this.inviteLink.bind(this)} >Compartir Link</button>
-              estoy dentro de una sala
+              
+              <Room />
+              <span className="alerts">
+                {messages}
+              </span>
             </Route>
 
             <Route path="/" exact>
             { room_id
-                ? <div>
-                    <Room room_id={room_id}/>
-                    <span className="alerts">
-                      {messages}
-                    </span>
-                  </div>
+                ? <Redirect to={"/room/"+room_id} />
 
                 : <Rooms/>
               }

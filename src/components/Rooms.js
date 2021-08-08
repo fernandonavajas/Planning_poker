@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import "./Rooms.scss"
 import socket from '../socketConfig';
 
+
 // Componente rooms
 // Contiene la logica para crear salas
 class Rooms extends Component {

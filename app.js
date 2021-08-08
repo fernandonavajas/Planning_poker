@@ -9,7 +9,6 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const config = require('./webpack.config')
 
 
-
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
