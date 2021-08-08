@@ -3,6 +3,14 @@ import ReactDOM from 'react-dom';
 import socket from './socketConfig';
 import './index.scss'
 
+// react roter
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 // Importar components
 import Navbar from './components/Navbar';
 import Rooms from './components/Rooms';
@@ -81,22 +89,6 @@ class App extends Component {
     });
   }
 
-  sendMessageToRoom(event){
-    const body = event.target.value
-    if (event.keyCode === 13 && body ) {
-      const message = {
-        body,
-        from: 'me',
-        // metodo para encontrar en que sala estoy
-        to: this.state.users.find(user => user.id === socket.id ).room_id
-      };
-      // añadir mi mensaje a la lista para que tambien pueda ver mis mensajes
-      this.setState({messages: [message, ...this.state.messages]})
-      socket.emit('message', message);
-      event.target.value = '';
-    }
-  }
-
   // Compartir invitación
   inviteLink() {
     let msg = "Copia y comparte el codigo: " + (this.state.room_id ? this.state.room_id : socket.id)
@@ -113,7 +105,7 @@ class App extends Component {
   render() {
 
     // Definir variables
-    let room = this.state.room_id
+    let room_id = this.state.room_id
 
     const messages = this.state.messages.map((message, index) => {
       return(
@@ -126,28 +118,31 @@ class App extends Component {
     });
 
     return (
-      <div className={`App bg-semi-${this.state.darkMode ? "black" : "white"}`}>
+      <Router>
         <Navbar title="Planning Poker" updateDarkMode={this.switchDarkMode.bind(this)}/>
-          <button type="button" className="btn btn-success share-room"
-                  onClick={this.inviteLink.bind(this)} >Compartir Link</button>
-          
-          { room
-            ? <div>
-                <Room room_id={room}/>
-                {/* <input
-                  type="text"
-                  placeholder="Envia un mensaje"
-                  onKeyUp={this.sendMessageToRoom.bind(this)}
-                /> */}
-                <span className="alerts">
-                  {messages}
-                </span>
-              </div>
+        <div className={`App bg-semi-${this.state.darkMode ? "black" : "white"}`}>
+          <Switch>
+            <Route path="/room_id" exact>
+              <button type="button" className="btn btn-success share-room"
+                        onClick={this.inviteLink.bind(this)} >Compartir Link</button>
+              estoy dentro de una sala
+            </Route>
 
-            : <Rooms/>
-          }
-          
-      </div>
+            <Route path="/" exact>
+            { room_id
+                ? <div>
+                    <Room room_id={room_id}/>
+                    <span className="alerts">
+                      {messages}
+                    </span>
+                  </div>
+
+                : <Rooms/>
+              }
+            </Route>
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }

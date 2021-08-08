@@ -9,6 +9,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const config = require('./webpack.config')
 
 
+
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
@@ -16,19 +17,18 @@ const io = socketIo(server);
 //middleware
 app.use(webpackDevMiddleware(webpack(config)));
 
-app.use(express.static(path.join(__dirname,'/public')))
+// app.use(express.static(path.join(__dirname,'/public')))
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '/public/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
 
 io.on('connection', socket => {
   // Cada vez que alguien se conecta enviar un mensaje por consola
-
-
-  // Cada vez que alguien envia un mensaje
-  socket.on('message', message => {
-    socket.to(message.to).emit('message', {
-      body: message.body,
-      from: socket.id.slice(5)
-    })
-  })
 
 
   // Cada vez que alguien crea una sala nueva
