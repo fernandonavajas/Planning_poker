@@ -69,20 +69,6 @@ class App extends Component {
       });
     })
 
-    // dar aviso al cliente para cambiar la vista a vista sala
-    socket.on('redirect_to_room', room_id => {
-      this.setState({
-        room_id: room_id
-      });
-    })
-
-    // logica para saber cuando el usuario crea o se agrega a una nueva sala
-    socket.on('redirect_to_room', room_id => {
-      this.setState({
-        room_id: room_id
-      });
-    })
-
 
     $(document).ready(function(){
       $(".alert-new-client").fadeTo(2000, 500)
@@ -106,8 +92,6 @@ class App extends Component {
   render() {
 
     // Definir variables
-    let room_id = this.state.room_id
-
     const messages = this.state.messages.map((message, index) => {
       return(
         <Expire delay="2000">
@@ -134,11 +118,7 @@ class App extends Component {
             </Route>
 
             <Route path="/" exact>
-            { room_id
-                ? <Redirect to={"/room/"+room_id} />
-
-                : <Lobby/>
-              }
+                <Lobby/>
             </Route>
           </Switch>
         </div>
