@@ -1,15 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Navbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      room_id: null
-    }
-  }
-
-  render() {
-    return (
+const Navbar = () => {
+  return (
     <header className="app-header">
       <nav className="navbar navbar-dark bg-dark">
         <div className="container-fluid">
@@ -21,8 +13,7 @@ class Navbar extends Component {
         </div>
       </nav>
     </header>
-    )
-  }
+  )
 }
 
-export default Navbar;
+export default Navbar
