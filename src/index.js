@@ -14,9 +14,9 @@ import {
 
 // Importar components
 import Navbar from './components/Navbar';
-import Rooms from './components/Rooms';
 import Room from './components/Room';
 import Expire from './components/Expire';
+import Lobby from './components/Lobby';
 
 // Componente App
 // Contiene la logica para la mensajeria de websocket
@@ -102,6 +102,7 @@ class App extends Component {
     }));
   }
 
+
   render() {
 
     // Definir variables
@@ -136,7 +137,7 @@ class App extends Component {
             { room_id
                 ? <Redirect to={"/room/"+room_id} />
 
-                : <Rooms/>
+                : <Lobby/>
               }
             </Route>
           </Switch>
