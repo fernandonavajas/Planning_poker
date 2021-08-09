@@ -16,9 +16,9 @@ import Room from './components/Room';
 import Lobby from './components/Lobby';
 import Alert from './components/Alert';
 
-// Componente App
-// Contiene la logica para la mensajeria de websocket
 
+
+// Componente App
 class App extends Component {
 
   constructor(props) {
@@ -31,11 +31,7 @@ class App extends Component {
       //   },
       // ]
       users: [],
-
-      // dark-mode
-      darkMode: false,
     }
-
   }
   
   componentDidMount() {
@@ -48,20 +44,11 @@ class App extends Component {
     })
   }
 
-  // cambiar darkMode
-  switchDarkMode() {
-    this.setState(prevState => ({
-      darkMode: !prevState.darkMode
-    }));
-  }
-
-
   render() {
     return (
       <Router>
         <Alert/>
-        <Navbar title="Planning Poker" updateDarkMode={this.switchDarkMode.bind(this)}/>
-        <div className={`App bg-semi-${this.state.darkMode ? "white" : "black"}`}>
+        <Navbar title="Planning Poker"/>
           <Switch>
             
             <Route path="/room/:id" exact>
@@ -72,7 +59,6 @@ class App extends Component {
                 <Lobby/>
             </Route>
           </Switch>
-        </div>
       </Router>
     );
   }
