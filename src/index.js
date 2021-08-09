@@ -12,9 +12,9 @@ import {
 
 // Importar components
 import Navbar from './components/Navbar';
-import Room from './components/Room';
 import Lobby from './components/Lobby';
 import Alert from './components/Alert';
+import Room from './components/Room';
 
 
 
@@ -24,24 +24,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // users: [
-      //   {
-      //     room_id: "Sala_4",
-      //     id: "Diego"
-      //   },
-      // ]
-      users: [],
     }
   }
   
   componentDidMount() {
 
-    // cuando alguien se une a una sala
-    socket.on('new_client', new_client => {
-      this.setState({
-        users: [new_client, ...this.state.users],
-      });
-    })
+    
   }
 
   render() {
@@ -52,6 +40,10 @@ class App extends Component {
           <Switch>
             
             <Route path="/room/:id" exact>
+              <Room />
+            </Route>
+
+            <Route path="/rooms" exact>
               <Room />
             </Route>
 

@@ -30,24 +30,21 @@ io.on('connection', socket => {
   // Cada vez que alguien se conecta enviar un mensaje por consola
 
 
-  // Cada vez que alguien crea una sala nueva
-  // enviamos la id de la sala para que las futuras solicitudes
-  // sean solo sobre su sala
+  // Crear nueva sala y redireccionar
   socket.on('new_room', socket_id => {
-    
-    // unir a la sala
     socket.join(socket_id);
-    
-    // cambiar la vista a vista sala
     io.to(socket.id).emit('redirect_to_room', socket_id)
-    
+  });
+
+  // Ingreso a sala
+  socket.on('new_user', socket_id => {
+    socket.join(socket_id);
+
     // añadir usuario nuevo a la lista de usuarios
     io.to(socket_id).emit('new_client', {
       room_id: socket_id,
       id: socket.id
     });
-    
-    //console.log(socket.rooms)
   });
 
   // Cada vez que alguien selecciona una carta de su mano
