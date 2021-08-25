@@ -32,7 +32,6 @@ io.on('connection', socket => {
 
   // Crear nueva sala y redireccionar
   socket.on('new_room', socket_id => {
-    socket.join(socket_id);
     io.to(socket.id).emit('redirect_to_room', socket_id)
   });
 
@@ -41,7 +40,7 @@ io.on('connection', socket => {
     socket.join(socket_id);
 
     // añadir usuario nuevo a la lista de usuarios
-    io.to(socket_id).emit('new_client', {
+    io.to(socket_id).emit('add_user_to_room', {
       room_id: socket_id,
       id: socket.id
     });
@@ -50,6 +49,7 @@ io.on('connection', socket => {
   // Cada vez que alguien selecciona una carta de su mano
   // enviamos un evento de carta seleccionada a la sala donde se encuentra
   socket.on('new_card', selected_card => {
+    console.log(selected_card)
     io.to(selected_card.room_id).emit('selected_card', {
       number: selected_card.number,
       user: selected_card.username,

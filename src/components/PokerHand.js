@@ -20,7 +20,7 @@ class PokerHand extends Component {
     let cards = [];
     for (let i = 0; i <= 10; i = i + 0.5) {
       cards.push(
-        <Card number={i} show={true} room_id={this.state.room_id} />
+        <Card number={i} show={true} room_id={this.props.room_id} key={"card" + i} />
       );
     }
 

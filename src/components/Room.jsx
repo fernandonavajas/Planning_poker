@@ -31,7 +31,7 @@ class Room extends Component {
 
 
     // cuando alguien se une a una sala
-    socket.on("new_client", (new_client) => {
+    socket.on("add_user_to_room", (new_client) => {
       this.setState({
         users: [new_client, ...this.state.users],
       });

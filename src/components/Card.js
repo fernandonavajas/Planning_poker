@@ -9,14 +9,13 @@ class Card extends Component {
 
     this.state = {
       number: this.props.number,
-      room_id: this.props.room_id
     }
   }
 
   showNumber() {
     let selected_card = {
       number: this.state.number,
-      room_id: this.state.room_id,
+      room_id: this.props.room_id,
       username: document.getElementById('input_username_room').value || socket.id
     }
     socket.emit('new_card', selected_card);
@@ -33,10 +32,9 @@ class Card extends Component {
     
   }
 
-
   render() {
 
-    const room_id = this.state.room_id
+    const room_id = this.props.room_id
 
     // Parte delantera de una carta
     if(this.props.show) {

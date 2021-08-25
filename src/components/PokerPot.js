@@ -21,7 +21,6 @@ class PokerPot extends Component {
       // ],
       cards: [],
       show_cards: false,
-      room_id: this.props.room_id
     }
   }
 
@@ -61,12 +60,12 @@ class PokerPot extends Component {
 
   // Levantar evento para limipiar las cartas en todos los usuarios de la sala
   clearCards() {
-    socket.emit('clear_card_data', this.state.room_id);
+    socket.emit('clear_card_data', this.props.room_id);
   }
 
   // Levantar evento para mostrar las cartas en todos los usuarios de la sala
   showCards() {
-    socket.emit('show_card_data', this.state.room_id);
+    socket.emit('show_card_data', this.props.room_id);
   }
   
   admin_buttons() {
@@ -83,7 +82,7 @@ class PokerPot extends Component {
   render() {
 
     const show_cards = this.state.show_cards
-    const room_id = this.state.room_id
+    const room_id = this.props.room_id
 
     const cards = this.state.cards.map((card, index) => {
       return(
