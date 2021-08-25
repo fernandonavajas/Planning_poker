@@ -3,12 +3,16 @@ module.exports = {
   entry: __dirname+'/src',
   output: {
     path: __dirname + '/dist',
+    publicPath: '/',
     filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: [ /\.js$/, /\.jsx?$/],
         loader: 'babel-loader',
         options: {
           presets: [
