@@ -13,10 +13,8 @@ class Room extends Component {
     super(props);
     this.state = {
       // users: [
-      //   {
-      //     room_id: "Sala_4",
-      //     id: "Diego"
-      //   },
+      //   socket_id,
+      //   socket_id
       // ]
       users: [],
       room_id: ""
@@ -28,15 +26,13 @@ class Room extends Component {
     const room_id = this.props.match.params.id;
     this.fetchData(room_id);
 
-
-
-    // cuando alguien se une a una sala
-    socket.on("add_user_to_room", (new_client) => {
+    // cuando alguien se une a una sala, obtener todos los clientes conectados en esa sala
+    socket.on("add_user_to_room", (user_list) => {
       this.setState({
-        users: [new_client, ...this.state.users],
+        users: user_list,
       });
+      console.log(this.state.users)
     });
-
   }
   fetchData = room_id => {
     this.setState({

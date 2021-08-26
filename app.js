@@ -6,8 +6,10 @@ const path = require('path');
 //webpack
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
-const config = require('./webpack.config')
+const config = require('./webpack.config');
 
+// firebase
+const { db } = require('./firebase');
 
 const app = express();
 const server = http.createServer(app);
@@ -39,10 +41,22 @@ io.on('connection', socket => {
   socket.on('new_user', socket_id => {
     socket.join(socket_id);
 
-    // añadir usuario nuevo a la lista de usuarios
-    io.to(socket_id).emit('add_user_to_room', {
-      room_id: socket_id,
-      id: socket.id
+    //ingresarlo a la BD
+    db.ref('rooms/' + socket_id).push({
+      user_socket_id: socket.id,
+    });
+
+    db.ref('rooms/' + socket_id)
+      .get().then((snapshot) => {
+      const data = snapshot.val();
+      var user_list = []
+      for(var i in data){
+        user_list.push(data[i].user_socket_id);
+      }
+      // añadir usuario nuevo a la lista de usuarios
+      io.to(socket_id).emit('add_user_to_room', {
+        user_list: user_list,
+      });
     });
   });
 
