@@ -1,3 +1,4 @@
+import { std } from 'mathjs';
 import React, { Component } from 'react';
 
 import socket from '../socketConfig';
@@ -67,30 +68,66 @@ class PokerPot extends Component {
     )
   };
 
+
+  renderDesviacion(desviacion) {
+    switch(true) {
+      case desviacion >= 2:
+        return <p className="text-danger">No hay consenso</p>;
+      case desviacion >= 1:
+        return <p className="text-warning">Consenso de {((1-desviacion/2)*100).toFixed(1)}%</p> 
+      case desviacion >= 0.5:
+        return <p className="text-info">Consenso de {((1-desviacion/2)*100).toFixed(1)}%</p> 
+      case desviacion >= 0:
+        return <p className="text-success">Consenso de {((1-desviacion/2)*100).toFixed(1)}%</p> 
+      default:
+        return <p className="text-danger">No hay consenso</p>;
+    }
+  }
+
   render() {
 
     const show_cards = this.state.show_cards
     const room_id = this.props.room_id
 
-    const cards = this.state.cards.map((card, index) => {
-      return(
-        <Card number={card.number} show={show_cards} user={card.user} />
-      )
+    const cards = this.state.cards.map((card, i) => {
+      if (card.score_poker != -1) {
+        return(
+          <Card number={card.score_poker} show={show_cards} user={card.username} key={"card-pot" + i}/>
+        )
+      }
     });
 
     const average = this.state.cards.reduce((total, next) =>
-                      total + next.number, 0
+                      total + next.score_poker, 0
                       ) / this.state.cards.length || 0;
 
-    
+    // const desviacion = () => {
+    //   xi = []
+    //   sumatoria = []
+    //   this.state.cards.forEach(function(data) {
+    //   xi.push(data.score_poker-average);
+    //   });
+    //   xi.forEach(function(data) {
+    //     sumatoria += (data*data)
+    //   });
+    //   varianza = sumatoria/xi.length
+    //   return Math.sqrt(varianza)
+    // };
+
+    const desviacion = this.state.cards.length ? std(this.state.cards.map(card => card.score_poker )) : 0;
+    //const desviacion = console.log(this.state.cards.map(card => card.score_poker))
+
     const admin_buttons =  room_id === socket.id ? this.admin_buttons() : "";
-    
+
     return (
       <div className="PokerPot">
         <span className="score-element">
           { admin_buttons }
           { show_cards
-          ? <p className="score-text">El promedio es de: {average.toFixed(1)} </p>
+            ? <div className="score-text">
+                <p >El promedio es de: {average.toFixed(1)} </p>
+                { this.renderDesviacion(desviacion) }
+              </div>
           : "" }
           
         </span>
