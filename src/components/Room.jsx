@@ -13,8 +13,8 @@ class Room extends Component {
     super(props);
     this.state = {
       // users: [
-      //   socket_id,
-      //   socket_id
+      //   socket_id_1,
+      //   socket_id_2,
       // ]
       users: [],
       room_id: ""
@@ -31,7 +31,6 @@ class Room extends Component {
       this.setState({
         users: user_list,
       });
-      console.log(this.state.users)
     });
   }
   fetchData = room_id => {

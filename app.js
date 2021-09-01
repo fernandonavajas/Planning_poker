@@ -41,48 +41,80 @@ io.on('connection', socket => {
   socket.on('new_user', socket_id => {
     socket.join(socket_id);
 
+    // referencias de la BD
+    var refRoom = db.ref('rooms/' + socket_id)
+    var refUSers = db.ref('rooms/' + socket_id + '/users/')
+    var refUSer = db.ref('rooms/' + socket_id + '/users/' + socket.id)
+
+    if (socket_id === socket.id) {
+      refRoom.set({
+        showCards: false
+      })
+    }
     //ingresarlo a la BD
-    db.ref('rooms/' + socket_id).push({
-      user_socket_id: socket.id,
+    refUSer.set({
+      username: socket.id,
+      score_poker: -1
     });
 
-    db.ref('rooms/' + socket_id)
-      .get().then((snapshot) => {
-      const data = snapshot.val();
+    refUSers.get().then((snapshot) => {
       var user_list = []
-      for(var i in data){
-        user_list.push(data[i].user_socket_id);
-      }
-      // añadir usuario nuevo a la lista de usuarios
-      io.to(socket_id).emit('add_user_to_room', {
-        user_list: user_list,
+      snapshot.forEach(function(data) {
+        user_list.push(data.key);
       });
+      io.to(socket_id).emit('add_user_to_room', user_list);
     });
   });
 
   // Cada vez que alguien selecciona una carta de su mano
   // enviamos un evento de carta seleccionada a la sala donde se encuentra
   socket.on('new_card', selected_card => {
-    console.log(selected_card)
-    io.to(selected_card.room_id).emit('selected_card', {
-      number: selected_card.number,
-      user: selected_card.username,
-      socket_id: socket.id
+    var refUSer = db.ref("rooms/" + selected_card.room_id + '/users/' + socket.id);
+    refUSer.update({
+      username: selected_card.username,
+      score_poker: selected_card.number
+    });
+
+    var refUSers = db.ref('rooms/' + selected_card.room_id + '/users')
+    refUSers.get().then((snapshot) => {
+      var user_list = []
+      snapshot.forEach(function(data) {
+        user_list.push(data);
+      });
+      io.to(selected_card.room_id).emit('new_card_selected', user_list);
     });
   });
-
 
   // cada vez que alguien preciona "limpiar cartas"
   // enviamos un evento de limpiar cartas a la sala donde se encuentra
   socket.on('clear_card_data', room_id => {
-    io.to(room_id).emit('clear_cards');
+    var refRoom = db.ref('rooms/' + room_id)
+    var refUSers = db.ref('rooms/' + room_id + '/users/')
+
+    refUSers.once("value", function(snapshot) {
+      snapshot.forEach(function(child) {
+        child.ref.update({
+          score_poker: -1
+        });
+      });
+    });
+    refRoom.update({
+      showCards: false,
+    }).then(()=>{
+      io.to(room_id).emit('clear_cards');
+    });
   });
 
 
   // cada vez que alguien preciona "mostrar cartas"
   // enviamos un evento para mostrar las cartas a la sala donde se encuentra
   socket.on('show_card_data', room_id => {
-    io.to(room_id).emit('show_cards');
+    var refRoom = db.ref('rooms/' + room_id)
+    refRoom.update({
+      showCards: true,
+    }).then(()=>{
+      io.to(room_id).emit('show_cards');
+    });
   });
 
 

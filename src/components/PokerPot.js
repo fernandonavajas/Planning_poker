@@ -14,9 +14,8 @@ class PokerPot extends Component {
     this.state = {
       // cards: [
       //   {
-      //     number: 5,
-      //     user: "Diego"
-      //     socket_id: "JIS29JSI22"
+      //     score_poker: 5,
+      //     username: "Diego"
       //   }
       // ],
       cards: [],
@@ -25,21 +24,10 @@ class PokerPot extends Component {
   }
 
   componentDidMount() {
-    socket.on('selected_card', selected_card => {
-      let cards = this.state.cards
-      // si el socket ya puso una valoracion
-      if (cards.some(c => c.socket_id === selected_card.socket_id )) {
-        let new_cards = cards.map(c => c.socket_id === selected_card.socket_id ? selected_card : c);
-        this.setState({
-          cards: new_cards
-        });
-      }
-      else {
-        this.setState({
-          cards: [selected_card, ...cards]
-        });
-      }
-
+    socket.on('new_card_selected', user_list => {
+      this.setState({
+        cards: user_list
+      });
     });
 
     // Limipiar las cartas
