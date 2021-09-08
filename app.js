@@ -43,6 +43,7 @@ io.on('connection', socket => {
 
     // referencias de la BD
     var refRoom = db.ref('rooms/' + socket_id)
+    var refShowCards = db.ref('rooms/' + socket_id + '/showCards/')
     var refUSers = db.ref('rooms/' + socket_id + '/users/')
     var refUSer = db.ref('rooms/' + socket_id + '/users/' + socket.id)
 
@@ -60,9 +61,15 @@ io.on('connection', socket => {
     refUSers.get().then((snapshot) => {
       var user_list = []
       snapshot.forEach(function(data) {
-        user_list.push(data.key);
+        user_list.push(data);
       });
-      io.to(socket_id).emit('add_user_to_room', user_list);
+      io.to(socket_id).emit('update_user_list', user_list);
+    });
+
+    refShowCards.get().then((snapshot) => {
+      if (snapshot.val()== true) {
+        io.to(socket_id).emit('show_cards');
+      }
     });
   });
 
@@ -81,7 +88,7 @@ io.on('connection', socket => {
       snapshot.forEach(function(data) {
         user_list.push(data);
       });
-      io.to(selected_card.room_id).emit('new_card_selected', user_list);
+      io.to(selected_card.room_id).emit('update_user_list', user_list);
     });
   });
 

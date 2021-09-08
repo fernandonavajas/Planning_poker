@@ -13,19 +13,14 @@ class PokerPot extends Component {
     super(props);
 
     this.state = {
-      // cards: [
-      //   {
-      //     score_poker: 5,
-      //     username: "Diego"
-      //   }
-      // ],
       cards: [],
       show_cards: false,
     }
   }
 
   componentDidMount() {
-    socket.on('new_card_selected', user_list => {
+
+    socket.on('update_user_list', user_list => {
       this.setState({
         cards: user_list
       });
@@ -101,21 +96,7 @@ class PokerPot extends Component {
                       total + next.score_poker, 0
                       ) / this.state.cards.length || 0;
 
-    // const desviacion = () => {
-    //   xi = []
-    //   sumatoria = []
-    //   this.state.cards.forEach(function(data) {
-    //   xi.push(data.score_poker-average);
-    //   });
-    //   xi.forEach(function(data) {
-    //     sumatoria += (data*data)
-    //   });
-    //   varianza = sumatoria/xi.length
-    //   return Math.sqrt(varianza)
-    // };
-
     const desviacion = this.state.cards.length ? std(this.state.cards.map(card => card.score_poker )) : 0;
-    //const desviacion = console.log(this.state.cards.map(card => card.score_poker))
 
     const admin_buttons =  room_id === socket.id ? this.admin_buttons() : "";
 
