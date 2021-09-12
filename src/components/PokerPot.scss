@@ -1,6 +1,4 @@
 .PokerPot {
-  padding-top: 3%;
-
   .score-element {
     text-align: center;
 
@@ -13,7 +11,7 @@
   .pot {
     justify-content: center;
     display: flex;
-    min-height: 100vh;
+    min-height: 50vh;
     flex-wrap: wrap;
   }
 

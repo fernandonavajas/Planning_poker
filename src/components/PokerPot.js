@@ -79,6 +79,10 @@ class PokerPot extends Component {
     }
   }
 
+  renderAverage(average) {
+    return <p>El promedio es de: {average.toFixed(1)} </p>
+  }
+
   render() {
 
     const show_cards = this.state.show_cards
@@ -87,16 +91,16 @@ class PokerPot extends Component {
     const cards = this.state.cards.map((card, i) => {
       if (card.score_poker != -1) {
         return(
-          <Card number={card.score_poker} show={show_cards} user={card.username} key={"card-pot" + i}/>
+          <Card number={card.score_poker} show={show_cards} user={card.username} pokerhand={false} key={"card-pot" + i}/>
         )
       }
     });
 
-    const average = this.state.cards.reduce((total, next) =>
+    const average = this.state.cards.filter(user => user.score_poker > -1).reduce((total, next) =>
                       total + next.score_poker, 0
-                      ) / this.state.cards.length || 0;
+                      ) / this.state.cards.filter(user => user.score_poker > -1).length || 0;
 
-    const desviacion = this.state.cards.length ? std(this.state.cards.map(card => card.score_poker )) : 0;
+    const desviacion = this.state.cards.filter(user => user.score_poker > -1).length ? std(this.state.cards.filter(user => user.score_poker > -1).map(card => card.score_poker )) : 0;
 
     const admin_buttons =  room_id === socket.id ? this.admin_buttons() : "";
 
@@ -106,7 +110,7 @@ class PokerPot extends Component {
           { admin_buttons }
           { show_cards
             ? <div className="score-text">
-                <p >El promedio es de: {average.toFixed(1)} </p>
+                {this.renderAverage(average)}
                 { this.renderDesviacion(desviacion) }
               </div>
           : "" }

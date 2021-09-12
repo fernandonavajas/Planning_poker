@@ -16,7 +16,7 @@ class Card extends Component {
     let selected_card = {
       number: this.state.number,
       room_id: this.props.room_id,
-      username: document.getElementById('input_username_room').value || socket.id
+      username: document.getElementById('input_username_room').value || "Anónimo"
     }
     socket.emit('new_card', selected_card);
   }
@@ -40,12 +40,12 @@ class Card extends Component {
     if(this.props.show) {
       return (
         <div className="card_container">
-          <div className="card card-joker" onClick={this.showNumber.bind(this)}>
-            <div className={`card-body ${room_id ? "card-interact" : ""}`}>
+          <div className={`card card-joker ${this.props.pokerhand ? "card-interact" : ""}`} onClick={this.showNumber.bind(this)}>
+            <div className="card-body">
               <div className="top">
                 <div>
                   <div>{this.props.number}</div>
-                  <div className="heart">♥</div>
+                  <div className="heart">♦</div>
                 </div>
               </div>
               <div className="center">
@@ -55,7 +55,7 @@ class Card extends Component {
               </div>
               <div className="bottom">
                 <div>
-                  <div className="heart">♥</div>
+                  <div className="heart">♦</div>
                   <div>{this.props.number}</div>
                 </div>
               </div>
