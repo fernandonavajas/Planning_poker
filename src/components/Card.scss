@@ -59,7 +59,11 @@
   }
 }
 
-.card-interact:hover {
+.card-in-hand {
+  margin-right: -50px;
+
+}
+.card-in-hand:hover {
   margin-right: 1vw;
   margin-left: 1vw;
   background-color: #d4d3d3;
