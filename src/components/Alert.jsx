@@ -37,6 +37,24 @@ export class Alert extends Component {
         messages: [message, ...this.state.messages]
       });
     })
+
+    socket.on("sing_in_with_google", username => {
+      let message = {
+        body: "Bienvenido "+ username
+      }
+      this.setState({
+        messages: [message, ...this.state.messages]
+      });
+    })
+
+    socket.on("logout", () => {
+      let message = {
+        body: "Hasta luego"
+      }
+      this.setState({
+        messages: [message, ...this.state.messages]
+      });
+    })
   }
   
   render() {

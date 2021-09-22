@@ -9,7 +9,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const config = require('./webpack.config');
 
 // firebase
-const { db } = require('./firebase');
+const { fb, db, auth } = require('./firebase');
 
 const app = express();
 const server = http.createServer(app);
@@ -29,8 +29,29 @@ app.get('/*', function(req, res) {
 })
 
 io.on('connection', socket => {
-  // Cada vez que alguien se conecta enviar un mensaje por consola
+  // Login with google
 
+  socket.on('google_login', () => {
+    const provider = new fb.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider)
+        .then( result => {
+          var user = result.user;
+          var username = user.displayName
+          io.to(socket.id).emit('sing_in_with_google', username)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+  })
+
+  socket.on('google_logout', () => {
+    //logout
+    fb.auth().signOut().then(() => {
+      io.to(socket.id).emit('logout')
+    }).catch((error) => {
+      // An error happened.
+    });
+  });
 
   // Crear nueva sala y redireccionar
   socket.on('new_room', socket_id => {
