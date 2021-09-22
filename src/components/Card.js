@@ -40,7 +40,7 @@ class Card extends Component {
     if(this.props.show) {
       return (
         <div className="card_container">
-          <div className={`card card-joker ${this.props.pokerhand ? "card-interact" : ""}`} onClick={this.showNumber.bind(this)}>
+          <div className={`card card-joker ${this.props.pokerhand ? "card-in-hand" : ""}`} onClick={this.showNumber.bind(this)}>
             <div className="card-body">
               <div className="top">
                 <div>
